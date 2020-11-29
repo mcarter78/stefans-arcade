@@ -167,6 +167,19 @@ function GameList() {
             visible={modalVisible}
             onCancel={() => {
                 setModalVisible(false);
+                setGameToDetail({
+                    id: '',
+                    title: '',
+                    password: '',
+                    buttons: {
+                        high_punch: '',
+                        high_kick: '',
+                        block: '',
+                        low_punch: '',
+                        low_kick: '',
+                        run: ''
+                    }
+                })
                 form.resetFields();
             }}
             footer={null}
