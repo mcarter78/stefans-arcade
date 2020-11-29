@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 
-import { Button, Col, Input, List, message, Modal, Space, Typography } from 'antd';
-import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Form, Input, List, message, Modal, Typography } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 import firebase from '../firebase';
 
-import GameForm from './GameForm';
 import ControllerLayout from './ControllerLayout';
 
 const { Title } = Typography;
 const { Search } = Input;
+
+const formLayout = {
+    labelCol: { span: 5 },
+    wrapperCol: { span: 19 },
+};
 
 function GameList() {
     const [gameList, setGameList] = useState([]);
@@ -28,6 +32,8 @@ function GameList() {
             run: ''
         }
     }); 
+
+    const [form] = Form.useForm();
 
     useEffect(() => {
         firebase.firestore().collection('games').get()
@@ -53,9 +59,10 @@ function GameList() {
                     console.log(game)
                     setGameList([...gameList, { ...gameData, id: game.id }]);
                     message.success('Game Added');
-                    setModalVisible(false);
                 });
         }
+        setModalVisible(false);
+        form.resetFields();
     }
 
     function handleGameClick(game) {
@@ -158,7 +165,10 @@ function GameList() {
         <Modal 
             title={gameToDetail.title ? gameToDetail.title : "Add Game"}
             visible={modalVisible}
-            onCancel={() => setModalVisible(false)}
+            onCancel={() => {
+                setModalVisible(false);
+                form.resetFields();
+            }}
             footer={null}
         >
             
@@ -167,10 +177,84 @@ function GameList() {
                 handleBtnClick={handleBtnClick}
             />
 
-            <GameForm 
-                game={gameToDetail}
-                onSubmit={onSubmit}
-            />
+            <Form
+                {...formLayout}
+                name="game-form"
+                initialValues={gameToDetail}
+                onFinish={onSubmit}
+            >
+                <Form.Item
+                    label="ID"
+                    name="id"
+                    hidden
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Title"
+                    name="title"
+                    rules={[{ required: true, message: 'Please input title' }]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[{ required: true, message: 'Please input password' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                    label="High Punch"
+                    name={['buttons', 'high_punch']}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="High Kick"
+                    name={['buttons', 'high_kick']}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Block"
+                    name={['buttons', 'block']}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Low Punch"
+                    name={['buttons', 'low_punch']}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Low Kick"
+                    name={['buttons', 'low_kick']}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Run"
+                    name={['buttons', 'run']}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                    Submit
+                    </Button>
+                </Form.Item>
+            </Form>
         </Modal>
     </>
 }
