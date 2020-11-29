@@ -43,6 +43,10 @@ function GameList() {
             });
     }, []);
 
+    useEffect(() => {
+        form.setFieldsValue(gameToDetail);
+    }, [gameToDetail])
+
     function onSubmit(gameData) {
         if (gameData.id) {
             firebase.firestore().collection('games').doc(gameData.id).update(gameData)
@@ -56,7 +60,6 @@ function GameList() {
         } else {
             firebase.firestore().collection('games').add(gameData)
                 .then(game => {
-                    console.log(game)
                     setGameList([...gameList, { ...gameData, id: game.id }]);
                     message.success('Game Added');
                 });
@@ -66,11 +69,8 @@ function GameList() {
     }
 
     function handleGameClick(game) {
-        firebase.firestore().collection('games').doc(game.id).get()
-            .then(query => {
-                setGameToDetail({ ...query.data(), id: query.id });
-                setModalVisible(true);
-            });
+        setGameToDetail(_.find(gameList, { id: game.id }));
+        setModalVisible(true);
     }
 
     function handleBtnClick(e) {
@@ -104,7 +104,6 @@ function GameList() {
             firebase.firestore().collection('games').get()
                 .then(query => {
                     let docs = _.map(query.docs, game => ({ ...game.data(), id: game.id }));
-                    console.log(docs);
                     setGameList(docs);
                 });
         }
@@ -179,8 +178,7 @@ function GameList() {
                         low_kick: '',
                         run: ''
                     }
-                })
-                form.resetFields();
+                });
             }}
             footer={null}
         >
@@ -191,9 +189,9 @@ function GameList() {
             />
 
             <Form
+                form={form}
                 {...formLayout}
                 name="game-form"
-                initialValues={gameToDetail}
                 onFinish={onSubmit}
             >
                 <Form.Item
