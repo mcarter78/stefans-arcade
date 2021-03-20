@@ -1,7 +1,7 @@
 {
-  "name": "arcade-map",
+  "name": "stefans-arcade",
   "version": "0.1.0",
-  "homepage": "https://mcarter78.github.io/arcade-map/",
+  "homepage": "https://mcarter78.github.io/stefans-arcade/",
   "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
