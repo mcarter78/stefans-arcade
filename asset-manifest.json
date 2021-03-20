@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/stefans-arcade/static/css/main.acd2dfdb.chunk.css",
-    "main.js": "/stefans-arcade/static/js/main.6610c604.chunk.js",
-    "main.js.map": "/stefans-arcade/static/js/main.6610c604.chunk.js.map",
+    "main.js": "/stefans-arcade/static/js/main.52cdd19e.chunk.js",
+    "main.js.map": "/stefans-arcade/static/js/main.52cdd19e.chunk.js.map",
     "runtime-main.js": "/stefans-arcade/static/js/runtime-main.44e8c9ee.js",
     "runtime-main.js.map": "/stefans-arcade/static/js/runtime-main.44e8c9ee.js.map",
     "static/css/2.3ba65449.chunk.css": "/stefans-arcade/static/css/2.3ba65449.chunk.css",
@@ -25,6 +25,6 @@
     "static/css/2.3ba65449.chunk.css",
     "static/js/2.2271cbc8.chunk.js",
     "static/css/main.acd2dfdb.chunk.css",
-    "static/js/main.6610c604.chunk.js"
+    "static/js/main.52cdd19e.chunk.js"
   ]
 }
